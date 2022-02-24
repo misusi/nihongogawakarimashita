@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Set up nework access manager
     manager = new QNetworkAccessManager();
     QObject::connect(manager, &QNetworkAccessManager::finished,
         this, [=](QNetworkReply *reply) {
@@ -24,12 +25,14 @@ MainWindow::MainWindow(QWidget *parent)
         }
     );
 
+    // Read config
+    readConfig("./config.conf");
+    // Read auth key
     setAuthKeyFromFile();
+    // Set up request
     baseUrl = "https://api-free.deepl.com/v2/translate";
-    //    request.setHeader(QNetworkRequest::ContentLengthHeader, textToTranslate.length());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     request.setHeader(QNetworkRequest::UserAgentHeader, "buffaloshittranslator");
-
 }
 
 MainWindow::~MainWindow()
@@ -39,7 +42,6 @@ MainWindow::~MainWindow()
 }
 
 
-
 void MainWindow::on_pushButtonSwitch_clicked()
 {
     int currentSourceIndex = ui->comboBoxSourceLanguage->currentIndex();
@@ -47,17 +49,6 @@ void MainWindow::on_pushButtonSwitch_clicked()
     ui->comboBoxTargetLanguage->setCurrentIndex(currentSourceIndex);
 }
 
-QByteArray getJsonFromMessage(std::string message)
-{
-    QJsonObject obj;
-    obj["key1"] = "value1";
-    obj["key2"] = "value2";
-    QJsonDocument doc(obj);
-    QByteArray data = doc.toJson();
-    return data;
-}
-
-//QNetworkReply* SendRequest(QNetworkAccessManager* manager, QByteArray json)
 
 void MainWindow::on_pushButtonTranslate_clicked()
 {
@@ -69,14 +60,13 @@ void MainWindow::on_pushButtonClear_clicked()
 {
     ui->plainTextEditSource->clear();
     ui->plainTextEditTarget->clear();
-    qDebug() << reply->readAll();
 }
 
 void MainWindow::setAuthKeyFromFile()
 {
-    QFile file("deepl_auth_key.txt");
+    QFile file(authKeyFilePath);
     if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", file.errorString());
+        showPopUp("Error", file.errorString().toStdString());
     }
     QTextStream in(&file);
     authKey=in.readLine().toStdString();
@@ -87,6 +77,7 @@ std::string MainWindow::getSourceLang()
 {
     return ui->comboBoxSourceLanguage->currentText().toStdString();
 }
+
 std::string MainWindow::getTargetLang()
 {
     return ui->comboBoxTargetLanguage->currentText().toStdString();
@@ -108,4 +99,94 @@ void MainWindow::setTranslatedText(std::string textToTranslate)
 {
     translatedText = textToTranslate;
     ui->plainTextEditTarget->setPlainText(QString::fromStdString(translatedText));
+}
+
+void MainWindow::on_pushButtonSave_clicked()
+{
+    // Make unique filename
+    const QString timestamp = QDateTime::currentDateTime().toString(QLatin1String("yyyyMMdd-hhmmsszzz"));
+    const QString fileName = saveDirectoryPath + "/" + "saved_transcript_" + timestamp + ".txt";
+    // Try to open file
+    QFile file(fileName);
+    if(file.open(QFile::WriteOnly | QFile::Text)) {
+        // Get full path
+        QFileInfo fileInfo(file);
+        QString fullPath = fileInfo.canonicalFilePath();
+        // Write to file
+        QTextStream stream(&file);
+        stream << QString::fromStdString(getSourceLang()) << "\n";
+        stream << ui->plainTextEditSource->toPlainText() << "\n";
+        stream << QString::fromStdString(getTargetLang()) << "\n";
+        stream << ui->plainTextEditTarget->toPlainText();
+        // Show popup
+        showPopUp("Saved Transcript", "Translation has been saved to " + fullPath.toStdString());
+        file.close();
+    }
+    else{
+        showPopUp("Error", "Translation could not be saved.");
+    }
+}
+
+void MainWindow::showPopUp(const std::string& title, const std::string& information)
+{
+    QMessageBox::information(0, QString::fromStdString(title), QString::fromStdString(information));
+}
+
+
+void MainWindow::on_actionSelectAuthKeyLocation_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(0, "Select Auth Key File", "", "All Files (*)");
+    if (fileName.isEmpty()) return;
+    showPopUp("Auth Key Location Set", "DeepL auth key will now be read from " + fileName.toStdString());
+    authKeyFilePath = fileName;
+    writeConfig("./config.conf");
+}
+
+
+void MainWindow::on_actionSelectTranscriptionSaveLocation_triggered()
+{
+   QString directoryPath = QFileDialog::getExistingDirectory(0, "Select folder in which to save to:", "./");
+   if (directoryPath.isEmpty()) return;
+   showPopUp("Save Location Set", "Translations will now be saved in " + directoryPath.toStdString());
+   saveDirectoryPath = directoryPath;
+   writeConfig("./config.conf");
+}
+
+void MainWindow::readConfig(QString configPath)
+{
+    QFile file(configPath);
+
+    if( file.open( QIODevice::ReadOnly ) )
+    {
+        QByteArray bytes = file.readAll();
+        file.close();
+
+        QJsonParseError jsonError;
+        QJsonDocument document = QJsonDocument::fromJson( bytes, &jsonError );
+        if( jsonError.error != QJsonParseError::NoError )
+        {
+            showPopUp("Error", "Could not read config file at " + configPath.toStdString());
+        }
+        QJsonObject jsonObj = document.object();
+        saveDirectoryPath = jsonObj.value("saveDirectoryPath").toString();
+        authKeyFilePath = jsonObj.value("authKeyFilePath").toString();
+        file.close();
+    }
+}
+
+void MainWindow::writeConfig(QString configPath)
+{
+    // Try to open file
+    QFile file(configPath);
+    if( file.open(QIODevice::WriteOnly | QFile::Truncate) )
+    {
+        // Create json object to write
+        QJsonObject recordObject;
+        recordObject.insert("saveDirectoryPath", QJsonValue::fromVariant(saveDirectoryPath));
+        recordObject.insert("authKeyFilePath", QJsonValue::fromVariant(authKeyFilePath));
+        // Write the new json to the file
+        QJsonDocument doc(recordObject);
+        file.write(doc.toJson());
+        file.close();
+    }
 }

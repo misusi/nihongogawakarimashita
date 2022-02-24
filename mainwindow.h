@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include <QByteArray>
 #include <QTimer>
+#include <QFileInfo>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,15 +35,22 @@ private slots:
 
     void on_pushButtonClear_clicked();
 
+    void on_pushButtonSave_clicked();
+
+    void on_actionSelectAuthKeyLocation_triggered();
+
+    void on_actionSelectTranscriptionSaveLocation_triggered();
+
 private:
     Ui::MainWindow *ui;
     QNetworkAccessManager *manager;
     QNetworkRequest request;
-    QNetworkReply* reply;
     std::string replyStr;
     std::string authKey;
     std::string baseUrl;
     std::string translatedText;
+    QString saveDirectoryPath;
+    QString authKeyFilePath;
 
     QByteArray getJsonFromMessage(std::string message);
     void setAuthKeyFromFile();
@@ -49,5 +58,10 @@ private:
     std::string getTargetLang();
     std::string getSourceLang();
     void setTranslatedText(std::string textToTranslate);
+    void showPopUp(const std::string& title, const std::string& information);
+    void readConfig(QString configPath);
+    void writeConfig(QString configPath);
+
+
 };
 #endif // MAINWINDOW_H

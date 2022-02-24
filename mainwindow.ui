@@ -159,12 +159,24 @@
    </property>
    <widget class="QMenu" name="menuNihongo_to_Eigo">
     <property name="title">
-     <string>Nihongo -&gt; Eigo</string>
+     <string>Options</string>
     </property>
+    <addaction name="actionSelectAuthKeyLocation"/>
+    <addaction name="actionSelectTranscriptionSaveLocation"/>
    </widget>
    <addaction name="menuNihongo_to_Eigo"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSelectAuthKeyLocation">
+   <property name="text">
+    <string>Select AuthKey Location</string>
+   </property>
+  </action>
+  <action name="actionSelectTranscriptionSaveLocation">
+   <property name="text">
+    <string>Select Transcription Save Location</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
