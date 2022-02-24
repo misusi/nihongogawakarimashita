@@ -66,7 +66,7 @@ void MainWindow::setAuthKeyFromFile()
 {
     QFile file(authKeyFilePath);
     if(!file.open(QIODevice::ReadOnly)) {
-        showPopUp("Error", file.errorString().toStdString());
+        showPopUp("Error Reading Auth Key", file.errorString().toStdString());
     }
     QTextStream in(&file);
     authKey=in.readLine().toStdString();
@@ -91,7 +91,6 @@ void MainWindow::sendRequest(std::string textToTranslate)
             + "&source_lang=" + getSourceLang()
             + "&target_lang=" + getTargetLang();
     request.setUrl(QString::fromStdString(baseUrl));
-    //qDebug() << "REQUEST DATA: " << QString::fromStdString(reqStr);
     manager->post(request, QByteArray::fromStdString(reqStr));
 }
 
@@ -119,7 +118,7 @@ void MainWindow::on_pushButtonSave_clicked()
         stream << QString::fromStdString(getTargetLang()) << "\n";
         stream << ui->plainTextEditTarget->toPlainText();
         // Show popup
-        showPopUp("Saved Transcript", "Translation has been saved to " + fullPath.toStdString());
+        showPopUp("Saved Translation", "Translation has been saved to " + fullPath.toStdString());
         file.close();
     }
     else{
