@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>にほんごがわかりました!!!!!!</string>
+   <string>にほんごがわかりました!!!!!!(すこし)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -209,6 +209,7 @@
     </property>
     <addaction name="actionSelectAuthKeyLocation"/>
     <addaction name="actionSelectTranscriptionSaveLocation"/>
+    <addaction name="actionShow_Current_Key_Save_Locations"/>
    </widget>
    <addaction name="menuNihongo_to_Eigo"/>
   </widget>
@@ -221,6 +222,11 @@
   <action name="actionSelectTranscriptionSaveLocation">
    <property name="text">
     <string>Select Translation Save Location</string>
+   </property>
+  </action>
+  <action name="actionShow_Current_Key_Save_Locations">
+   <property name="text">
+    <string>Show Current Key/Save Locations</string>
    </property>
   </action>
  </widget>

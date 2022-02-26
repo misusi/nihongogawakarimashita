@@ -14,6 +14,9 @@
 #include <QTimer>
 #include <QFileInfo>
 #include <QFileDialog>
+//#include <QTextToSpeech>
+//#include <QVoice>
+#include <QThread>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,16 +44,20 @@ private slots:
 
     void on_actionSelectTranscriptionSaveLocation_triggered();
 
+    void on_actionShow_Current_Key_Save_Locations_triggered();
+
 private:
     Ui::MainWindow *ui;
-    QNetworkAccessManager *manager;
-    QNetworkRequest request;
-    std::string replyStr;
-    std::string authKey;
-    std::string baseUrl;
-    std::string translatedText;
-    QString saveDirectoryPath;
-    QString authKeyFilePath;
+    QNetworkAccessManager *m_manager;
+    QNetworkRequest m_request;
+    std::string m_replyStr;
+    std::string m_authKey;
+    std::string m_baseUrl;
+    std::string m_translatedText;
+    QString m_saveDirectoryPath;
+    QString m_authKeyFilePath;
+    const QString m_configPath = "config.conf";
+    const QString m_defaultSaveDir = "saved_translations";
 
     QByteArray getJsonFromMessage(std::string message);
     void setAuthKeyFromFile();
@@ -58,10 +65,11 @@ private:
     std::string getTargetLang();
     std::string getSourceLang();
     void setTranslatedText(std::string textToTranslate);
-    void showPopUp(const std::string& title, const std::string& information);
-    void readConfig(QString configPath);
+    bool readConfig(QString configPath);
     void writeConfig(QString configPath);
-
+    QString promptForFile(const QString& caption, const QString& filter);
+    QString promptForDirectory(const QString& caption);
+    void showPopUp(const std::string& title, const std::string& information);
 
 };
 #endif // MAINWINDOW_H
