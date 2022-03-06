@@ -272,7 +272,7 @@ void MainWindow::on_actionShow_Current_Key_Save_Locations_triggered()
 void MainWindow::on_actionChange_Font_Settings_triggered()
 {
     bool ok;
-    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica", 10), this);
+    QFont font = QFontDialog::getFont(&ok, m_userFont, this);
 
     if (ok)
     {
