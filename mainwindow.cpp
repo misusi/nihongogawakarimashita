@@ -286,3 +286,17 @@ void MainWindow::on_actionShow_Current_Key_Save_Locations_triggered()
               + "\n\nSave Folder Path: " + m_saveDirectoryPath.toStdString());
 }
 
+
+void MainWindow::on_actionChange_Font_Settings_triggered()
+{
+    bool ok;
+
+    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
+
+    if (ok)
+    {
+        ui->plainTextEditSource->setFont(font);
+        ui->plainTextEditTarget->setFont(font);
+    }
+}
+

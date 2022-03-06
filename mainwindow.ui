@@ -56,7 +56,7 @@
       <x>10</x>
       <y>40</y>
       <width>381</width>
-      <height>371</height>
+      <height>511</height>
      </rect>
     </property>
     <property name="font">
@@ -172,12 +172,12 @@
      <rect>
       <x>520</x>
       <y>10</y>
-      <width>161</width>
+      <width>51</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>Save Translation to File...</string>
+     <string>Save</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButtonClear">
@@ -191,16 +191,6 @@
     </property>
     <property name="text">
      <string>Clear</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>430</y>
-      <width>271</width>
-      <height>121</height>
-     </rect>
     </property>
    </widget>
   </widget>
@@ -220,6 +210,7 @@
     <addaction name="actionSelectAuthKeyLocation"/>
     <addaction name="actionSelectTranscriptionSaveLocation"/>
     <addaction name="actionShow_Current_Key_Save_Locations"/>
+    <addaction name="actionChange_Font_Settings"/>
    </widget>
    <addaction name="menuNihongo_to_Eigo"/>
   </widget>
@@ -237,6 +228,11 @@
   <action name="actionShow_Current_Key_Save_Locations">
    <property name="text">
     <string>Show Current Key/Save Locations</string>
+   </property>
+  </action>
+  <action name="actionChange_Font_Settings">
+   <property name="text">
+    <string>Change Font Settings</string>
    </property>
   </action>
  </widget>

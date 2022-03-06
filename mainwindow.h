@@ -17,6 +17,7 @@
 //#include <QTextToSpeech>
 //#include <QVoice>
 #include <QThread>
+#include <QFontDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -45,6 +46,8 @@ private slots:
     void on_actionSelectTranscriptionSaveLocation_triggered();
 
     void on_actionShow_Current_Key_Save_Locations_triggered();
+
+    void on_actionChange_Font_Settings_triggered();
 
 private:
     Ui::MainWindow *ui;
