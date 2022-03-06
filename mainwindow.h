@@ -59,6 +59,8 @@ private:
     std::string m_translatedText;
     QString m_saveDirectoryPath;
     QString m_authKeyFilePath;
+    QFont m_userFont;
+    QFont m_defaultFont = QFont("Helvetica", 10);
     const QString m_configPath = "./config.conf";
     const QString m_defaultSaveDir = "./saved_translations";
 

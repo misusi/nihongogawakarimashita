@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -31,14 +32,18 @@ public:
     QAction *actionShow_Current_Key_Save_Locations;
     QAction *actionChange_Font_Settings;
     QWidget *centralwidget;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *horizontalLayout;
     QPlainTextEdit *plainTextEditSource;
     QPlainTextEdit *plainTextEditTarget;
+    QWidget *horizontalLayoutWidget_2;
+    QHBoxLayout *horizontalLayout_2;
     QComboBox *comboBoxSourceLanguage;
-    QComboBox *comboBoxTargetLanguage;
     QPushButton *pushButtonSwitch;
+    QComboBox *comboBoxTargetLanguage;
     QPushButton *pushButtonTranslate;
-    QPushButton *pushButtonSave;
     QPushButton *pushButtonClear;
+    QPushButton *pushButtonSave;
     QMenuBar *menubar;
     QMenu *menuNihongo_to_Eigo;
     QStatusBar *statusbar;
@@ -47,14 +52,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(1280, 720);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(800, 600));
-        MainWindow->setMaximumSize(QSize(800, 600));
+        MainWindow->setMinimumSize(QSize(1280, 720));
+        MainWindow->setMaximumSize(QSize(16777215, 16777215));
         actionSelectAuthKeyLocation = new QAction(MainWindow);
         actionSelectAuthKeyLocation->setObjectName(QString::fromUtf8("actionSelectAuthKeyLocation"));
         actionSelectTranscriptionSaveLocation = new QAction(MainWindow);
@@ -65,47 +70,83 @@ public:
         actionChange_Font_Settings->setObjectName(QString::fromUtf8("actionChange_Font_Settings"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
-        centralwidget->setSizePolicy(sizePolicy);
-        centralwidget->setMinimumSize(QSize(800, 557));
-        centralwidget->setMaximumSize(QSize(800, 557));
-        plainTextEditSource = new QPlainTextEdit(centralwidget);
+        QSizePolicy sizePolicy1(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
+        centralwidget->setSizePolicy(sizePolicy1);
+        centralwidget->setMinimumSize(QSize(1280, 720));
+        centralwidget->setMaximumSize(QSize(16777215, 16777215));
+        centralwidget->setSizeIncrement(QSize(1, 1));
+        horizontalLayoutWidget = new QWidget(centralwidget);
+        horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setGeometry(QRect(0, 50, 971, 631));
+        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        plainTextEditSource = new QPlainTextEdit(horizontalLayoutWidget);
         plainTextEditSource->setObjectName(QString::fromUtf8("plainTextEditSource"));
-        plainTextEditSource->setGeometry(QRect(10, 40, 381, 511));
         QFont font;
         font.setPointSize(12);
         plainTextEditSource->setFont(font);
-        plainTextEditTarget = new QPlainTextEdit(centralwidget);
+
+        horizontalLayout->addWidget(plainTextEditSource);
+
+        plainTextEditTarget = new QPlainTextEdit(horizontalLayoutWidget);
         plainTextEditTarget->setObjectName(QString::fromUtf8("plainTextEditTarget"));
-        plainTextEditTarget->setGeometry(QRect(410, 40, 381, 511));
         plainTextEditTarget->setFont(font);
         plainTextEditTarget->setReadOnly(true);
-        comboBoxSourceLanguage = new QComboBox(centralwidget);
+
+        horizontalLayout->addWidget(plainTextEditTarget);
+
+        horizontalLayoutWidget_2 = new QWidget(centralwidget);
+        horizontalLayoutWidget_2->setObjectName(QString::fromUtf8("horizontalLayoutWidget_2"));
+        horizontalLayoutWidget_2->setGeometry(QRect(0, 10, 476, 31));
+        horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        comboBoxSourceLanguage = new QComboBox(horizontalLayoutWidget_2);
         comboBoxSourceLanguage->addItem(QString());
         comboBoxSourceLanguage->addItem(QString());
         comboBoxSourceLanguage->setObjectName(QString::fromUtf8("comboBoxSourceLanguage"));
-        comboBoxSourceLanguage->setGeometry(QRect(10, 10, 111, 24));
-        comboBoxTargetLanguage = new QComboBox(centralwidget);
+        sizePolicy.setHeightForWidth(comboBoxSourceLanguage->sizePolicy().hasHeightForWidth());
+        comboBoxSourceLanguage->setSizePolicy(sizePolicy);
+
+        horizontalLayout_2->addWidget(comboBoxSourceLanguage);
+
+        pushButtonSwitch = new QPushButton(horizontalLayoutWidget_2);
+        pushButtonSwitch->setObjectName(QString::fromUtf8("pushButtonSwitch"));
+
+        horizontalLayout_2->addWidget(pushButtonSwitch);
+
+        comboBoxTargetLanguage = new QComboBox(horizontalLayoutWidget_2);
         comboBoxTargetLanguage->addItem(QString());
         comboBoxTargetLanguage->addItem(QString());
         comboBoxTargetLanguage->setObjectName(QString::fromUtf8("comboBoxTargetLanguage"));
-        comboBoxTargetLanguage->setGeometry(QRect(190, 10, 111, 24));
-        pushButtonSwitch = new QPushButton(centralwidget);
-        pushButtonSwitch->setObjectName(QString::fromUtf8("pushButtonSwitch"));
-        pushButtonSwitch->setGeometry(QRect(130, 10, 51, 24));
-        pushButtonTranslate = new QPushButton(centralwidget);
+        sizePolicy.setHeightForWidth(comboBoxTargetLanguage->sizePolicy().hasHeightForWidth());
+        comboBoxTargetLanguage->setSizePolicy(sizePolicy);
+
+        horizontalLayout_2->addWidget(comboBoxTargetLanguage);
+
+        pushButtonTranslate = new QPushButton(horizontalLayoutWidget_2);
         pushButtonTranslate->setObjectName(QString::fromUtf8("pushButtonTranslate"));
-        pushButtonTranslate->setGeometry(QRect(340, 10, 80, 24));
-        pushButtonSave = new QPushButton(centralwidget);
-        pushButtonSave->setObjectName(QString::fromUtf8("pushButtonSave"));
-        pushButtonSave->setGeometry(QRect(520, 10, 51, 24));
-        pushButtonClear = new QPushButton(centralwidget);
+
+        horizontalLayout_2->addWidget(pushButtonTranslate);
+
+        pushButtonClear = new QPushButton(horizontalLayoutWidget_2);
         pushButtonClear->setObjectName(QString::fromUtf8("pushButtonClear"));
-        pushButtonClear->setGeometry(QRect(430, 10, 80, 24));
+
+        horizontalLayout_2->addWidget(pushButtonClear);
+
+        pushButtonSave = new QPushButton(horizontalLayoutWidget_2);
+        pushButtonSave->setObjectName(QString::fromUtf8("pushButtonSave"));
+
+        horizontalLayout_2->addWidget(pushButtonSave);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 22));
+        menubar->setGeometry(QRect(0, 0, 1280, 22));
         menuNihongo_to_Eigo = new QMenu(menubar);
         menuNihongo_to_Eigo->setObjectName(QString::fromUtf8("menuNihongo_to_Eigo"));
         MainWindow->setMenuBar(menubar);
@@ -141,14 +182,14 @@ public:
         comboBoxSourceLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "EN", nullptr));
 
         comboBoxSourceLanguage->setPlaceholderText(QCoreApplication::translate("MainWindow", "From...", nullptr));
+        pushButtonSwitch->setText(QCoreApplication::translate("MainWindow", "Switch", nullptr));
         comboBoxTargetLanguage->setItemText(0, QCoreApplication::translate("MainWindow", "JA", nullptr));
         comboBoxTargetLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "EN", nullptr));
 
         comboBoxTargetLanguage->setPlaceholderText(QCoreApplication::translate("MainWindow", "To...", nullptr));
-        pushButtonSwitch->setText(QCoreApplication::translate("MainWindow", "Switch", nullptr));
         pushButtonTranslate->setText(QCoreApplication::translate("MainWindow", "Translate", nullptr));
-        pushButtonSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
         pushButtonClear->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
+        pushButtonSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
         menuNihongo_to_Eigo->setTitle(QCoreApplication::translate("MainWindow", "Options", nullptr));
     } // retranslateUi
 

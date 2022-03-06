@@ -85,7 +85,6 @@ void MainWindow::on_pushButtonTranslate_clicked()
 }
 
 
-void sayShit();
 void MainWindow::on_pushButtonClear_clicked()
 {
     ui->plainTextEditSource->clear();
@@ -210,13 +209,37 @@ bool MainWindow::readConfig(QString configPath)
             qDebug() << "Error: Could not read config file at " << configPath;
             return false;
         }
+
+        // Get values from json config
         QJsonObject jsonObj = document.object();
         m_saveDirectoryPath = jsonObj.value("saveDirectoryPath").toString();
         m_authKeyFilePath = jsonObj.value("authKeyFilePath").toString();
+        m_userFont.setFamily(jsonObj.value("fontName").toString());
+        m_userFont.setPointSize(jsonObj.value("fontSize").toInt());
+
+        // Check font
+        if (m_userFont.family().isEmpty() || m_userFont.pointSize() < 1) {
+            m_userFont = m_defaultFont;
+        }
+
+        // REMOVE
+        std::cout << "User Font Info:" << std::endl;
+        std::cout << m_userFont.family().toStdString() << std::endl;
+        std::cout << m_userFont.pointSize() << std::endl;
+
+        // TODO: Move auth key check here...
+        // TODO: Move save dir check here... (set to some default)
+
+        qDebug() << "Font is: " << m_userFont;
+        ui->plainTextEditSource->setFont(m_userFont);
+        ui->plainTextEditTarget->setFont(m_userFont);
+
         file.close();
         return true;
     }
+    return false;
 }
+
 
 void MainWindow::writeConfig(QString configPath)
 {
@@ -228,6 +251,8 @@ void MainWindow::writeConfig(QString configPath)
         QJsonObject recordObject;
         recordObject.insert("saveDirectoryPath", QJsonValue::fromVariant(m_saveDirectoryPath));
         recordObject.insert("authKeyFilePath", QJsonValue::fromVariant(m_authKeyFilePath));
+        recordObject.insert("fontName", QJsonValue::fromVariant(QFontInfo(m_userFont).family()));
+        recordObject.insert("fontSize", QJsonValue::fromVariant(QFontInfo(m_userFont).pointSize()));
         // Write the new json to the file
         QJsonDocument doc(recordObject);
         file.write(doc.toJson());
@@ -235,49 +260,6 @@ void MainWindow::writeConfig(QString configPath)
     }
 }
 
-
-//void sayShit()
-//{
-//    // List the available engines.
-//   QStringList engines = QTextToSpeech::availableEngines();
-//   qDebug() << "Available engines:";
-//   for (auto engine : engines) {
-//   qDebug() << "  " << engine;
-//   }
-
-//   // Create an instance using the default engine/plugin.
-//   //QTextToSpeech *speech = new QTextToSpeech();
-//   QTextToSpeech *speech = new QTextToSpeech("speechd", 0);
-
-//   // List the available locales.
-//   qDebug() << "Available locales:";
-//   for (auto locale : speech->availableLocales()) {
-//   qDebug() << "  " << locale;
-//   }
-
-
-//   // Set locale.
-//   speech->setLocale(QLocale(QLocale::English, QLocale::LatinScript, QLocale::UnitedStates));
-//   //speech->setLocale(QLocale(QLocale::Japanese, QLocale::Japanese, QLocale::Japan));
-//   // List the available voices.
-//   qDebug() << "Available voices:";
-//   for (auto voice : speech->availableVoices()) {
-//   qDebug() << "  " << voice.name();
-//   }
-//   // Display properties.
-//   qDebug() << "Locale:" << speech->locale();
-//   qDebug() << "Pitch:" << speech->pitch();
-//   qDebug() << "Rate:" << speech->rate();
-//   qDebug() << "Voice:" << speech->voice().name();
-//   qDebug() << "Volume:" << speech->volume();
-//   qDebug() << "State:" << speech->state();
-//   // Say something.
-//   speech->say("Hello, world! This is the Qt speech engine.");
-//   speech->setVoice(QVoice());
-//   speech->say("nihongogawakarimashita");
-//   // Wait for sound to play before exiting.
-//   QThread::sleep(4);
-//}
 
 void MainWindow::on_actionShow_Current_Key_Save_Locations_triggered()
 {
@@ -290,13 +272,14 @@ void MainWindow::on_actionShow_Current_Key_Save_Locations_triggered()
 void MainWindow::on_actionChange_Font_Settings_triggered()
 {
     bool ok;
-
-    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
+    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica", 10), this);
 
     if (ok)
     {
         ui->plainTextEditSource->setFont(font);
         ui->plainTextEditTarget->setFont(font);
+        m_userFont = font;
+        writeConfig(m_configPath);
     }
 }
 
