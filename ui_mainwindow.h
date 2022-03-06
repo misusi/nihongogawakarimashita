@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,7 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QAction>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QMainWindow>
@@ -19,6 +19,7 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -38,6 +39,7 @@ public:
     QPushButton *pushButtonTranslate;
     QPushButton *pushButtonSave;
     QPushButton *pushButtonClear;
+    QTextEdit *textEdit;
     QMenuBar *menubar;
     QMenu *menuNihongo_to_Eigo;
     QStatusBar *statusbar;
@@ -68,7 +70,7 @@ public:
         centralwidget->setMaximumSize(QSize(800, 557));
         plainTextEditSource = new QPlainTextEdit(centralwidget);
         plainTextEditSource->setObjectName(QString::fromUtf8("plainTextEditSource"));
-        plainTextEditSource->setGeometry(QRect(10, 40, 381, 511));
+        plainTextEditSource->setGeometry(QRect(10, 40, 381, 371));
         QFont font;
         font.setPointSize(12);
         plainTextEditSource->setFont(font);
@@ -99,10 +101,13 @@ public:
         pushButtonClear = new QPushButton(centralwidget);
         pushButtonClear->setObjectName(QString::fromUtf8("pushButtonClear"));
         pushButtonClear->setGeometry(QRect(430, 10, 80, 24));
+        textEdit = new QTextEdit(centralwidget);
+        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        textEdit->setGeometry(QRect(40, 430, 271, 121));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 22));
         menuNihongo_to_Eigo = new QMenu(menubar);
         menuNihongo_to_Eigo->setObjectName(QString::fromUtf8("menuNihongo_to_Eigo"));
         MainWindow->setMenuBar(menubar);
@@ -126,23 +131,25 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "\343\201\253\343\201\273\343\202\223\343\201\224\343\201\214\343\202\217\343\201\213\343\202\212\343\201\276\343\201\227\343\201\237!!!!!!(\343\201\231\343\201\223\343\201\227)", nullptr));
-        actionSelectAuthKeyLocation->setText(QApplication::translate("MainWindow", "Select AuthKey Location", nullptr));
-        actionSelectTranscriptionSaveLocation->setText(QApplication::translate("MainWindow", "Select Translation Save Location", nullptr));
-        actionShow_Current_Key_Save_Locations->setText(QApplication::translate("MainWindow", "Show Current Key/Save Locations", nullptr));
-        plainTextEditSource->setPlaceholderText(QApplication::translate("MainWindow", "Write here...", nullptr));
-        plainTextEditTarget->setPlaceholderText(QApplication::translate("MainWindow", "Translation...", nullptr));
-        comboBoxSourceLanguage->setItemText(0, QApplication::translate("MainWindow", "JA", nullptr));
-        comboBoxSourceLanguage->setItemText(1, QApplication::translate("MainWindow", "EN", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\343\201\253\343\201\273\343\202\223\343\201\224\343\201\214\343\202\217\343\201\213\343\202\212\343\201\276\343\201\227\343\201\237!!!!!!(\343\201\231\343\201\223\343\201\227)", nullptr));
+        actionSelectAuthKeyLocation->setText(QCoreApplication::translate("MainWindow", "Select AuthKey Location", nullptr));
+        actionSelectTranscriptionSaveLocation->setText(QCoreApplication::translate("MainWindow", "Select Translation Save Location", nullptr));
+        actionShow_Current_Key_Save_Locations->setText(QCoreApplication::translate("MainWindow", "Show Current Key/Save Locations", nullptr));
+        plainTextEditSource->setPlaceholderText(QCoreApplication::translate("MainWindow", "Write here...", nullptr));
+        plainTextEditTarget->setPlaceholderText(QCoreApplication::translate("MainWindow", "Translation...", nullptr));
+        comboBoxSourceLanguage->setItemText(0, QCoreApplication::translate("MainWindow", "JA", nullptr));
+        comboBoxSourceLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "EN", nullptr));
 
-        comboBoxTargetLanguage->setItemText(0, QApplication::translate("MainWindow", "JA", nullptr));
-        comboBoxTargetLanguage->setItemText(1, QApplication::translate("MainWindow", "EN", nullptr));
+        comboBoxSourceLanguage->setPlaceholderText(QCoreApplication::translate("MainWindow", "From...", nullptr));
+        comboBoxTargetLanguage->setItemText(0, QCoreApplication::translate("MainWindow", "JA", nullptr));
+        comboBoxTargetLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "EN", nullptr));
 
-        pushButtonSwitch->setText(QApplication::translate("MainWindow", "Switch", nullptr));
-        pushButtonTranslate->setText(QApplication::translate("MainWindow", "Translate", nullptr));
-        pushButtonSave->setText(QApplication::translate("MainWindow", "Save Translation to File...", nullptr));
-        pushButtonClear->setText(QApplication::translate("MainWindow", "Clear", nullptr));
-        menuNihongo_to_Eigo->setTitle(QApplication::translate("MainWindow", "Options", nullptr));
+        comboBoxTargetLanguage->setPlaceholderText(QCoreApplication::translate("MainWindow", "To...", nullptr));
+        pushButtonSwitch->setText(QCoreApplication::translate("MainWindow", "Switch", nullptr));
+        pushButtonTranslate->setText(QCoreApplication::translate("MainWindow", "Translate", nullptr));
+        pushButtonSave->setText(QCoreApplication::translate("MainWindow", "Save Translation to File...", nullptr));
+        pushButtonClear->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
+        menuNihongo_to_Eigo->setTitle(QCoreApplication::translate("MainWindow", "Options", nullptr));
     } // retranslateUi
 
 };

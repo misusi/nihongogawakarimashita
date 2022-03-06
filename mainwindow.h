@@ -56,8 +56,9 @@ private:
     std::string m_translatedText;
     QString m_saveDirectoryPath;
     QString m_authKeyFilePath;
-    const QString m_configPath = "config.conf";
-    const QString m_defaultSaveDir = "saved_translations";
+    const QString m_configPath = "./config.conf";
+    const QString m_defaultSaveDir = "./saved_translations";
+
 
     QByteArray getJsonFromMessage(std::string message);
     void setAuthKeyFromFile();

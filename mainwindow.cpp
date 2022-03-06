@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
     );
 
+
     QFileInfo fileInfo("./");
     QString fullPath = fileInfo.canonicalFilePath();
     qDebug() << fullPath;
@@ -52,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_baseUrl = "https://api-free.deepl.com/v2/translate";
     m_request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     m_request.setHeader(QNetworkRequest::UserAgentHeader, "buffaloshittranslator");
+
+
 }
 
 MainWindow::~MainWindow()
@@ -63,9 +66,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonSwitch_clicked()
 {
+
+    // Swap langauge dropdowns
     int currentSourceIndex = ui->comboBoxSourceLanguage->currentIndex();
     ui->comboBoxSourceLanguage->setCurrentIndex(ui->comboBoxTargetLanguage->currentIndex());
     ui->comboBoxTargetLanguage->setCurrentIndex(currentSourceIndex);
+
+    // Swap textbox contents
+    QString currentSourceText = ui->plainTextEditSource->toPlainText();
+    ui->plainTextEditSource->setPlainText(ui->plainTextEditTarget->toPlainText());
+    ui->plainTextEditTarget->setPlainText(currentSourceText);
 }
 
 
