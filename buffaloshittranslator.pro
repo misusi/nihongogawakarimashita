@@ -10,10 +10,12 @@ CONFIG += c++11 console
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    network.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    network.h
 
 FORMS += \
     mainwindow.ui
@@ -22,3 +24,10 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/lib/release/ -lhtmlcxx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/lib/debug/ -lhtmlcxx
+else:unix: LIBS += -L$$PWD/../../../../../../usr/lib/ -lhtmlcxx
+
+INCLUDEPATH += $$PWD/../../../../../../usr/include
+DEPENDPATH += $$PWD/../../../../../../usr/include

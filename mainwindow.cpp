@@ -1,6 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
+
+
+// TODO:
+// [-] Remove reading auth key from file, just put it in the config
+// [-] Get html parser working
+// [-] Add section for RomajiDesu dictionary/sentence examples
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,26 +14,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Set up nework access manager
-    m_manager = new QNetworkAccessManager();
-    QObject::connect(m_manager, &QNetworkAccessManager::finished,
-        this, [=](QNetworkReply *reply) {
-            if (reply->error()) {
-                qDebug() << reply->errorString();
-                return;
-            }
+    // Listen for network reply ready signals
+    QObject::connect(network, SIGNAL(replyReadyDeepl(QString)), this, SLOT(receiveNetworkSignalDeepl(QString)));
+    QObject::connect(network, SIGNAL(replyReadyRomajiDesu(QString)), this, SLOT(receiveNetworkSignalRomajiDesu(QString)));
 
-            QJsonParseError err;
-            QJsonDocument doc(QJsonDocument::fromJson(reply->readAll(), &err));
-            setTranslatedText(doc.object()["translations"].toArray().first()
-                    .toObject().value("text").toString().toStdString());
-        }
-    );
+    // HTML Parser
+    m_htmlParser = new HTML::ParserDom();
 
 
     QFileInfo fileInfo("./");
     QString fullPath = fileInfo.canonicalFilePath();
-    qDebug() << fullPath;
 
     // Read config
     if (!readConfig(m_configPath))
@@ -49,10 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
     // Read auth key
     setAuthKeyFromFile();
     // If can't find auth key file, show prompt
-    // Set up request
-    m_baseUrl = "https://api-free.deepl.com/v2/translate";
-    m_request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    m_request.setHeader(QNetworkRequest::UserAgentHeader, "buffaloshittranslator");
+
+    std::cout << "mainwindow::constructor done" << std::endl;
+
 
 
 }
@@ -60,9 +54,20 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_manager;
+    delete m_htmlParser;
 }
 
+void MainWindow::receiveNetworkSignalDeepl(const QString &arg)
+{
+    ui->plainTextEditTarget->setPlainText(arg);
+    std::cout << "mainwindow::receiveNetworkSignalDeepl done" << std::endl;
+
+}
+
+void MainWindow::receiveNetworkSignalRomajiDesu(const QString &arg)
+{
+    std::cout << arg.toStdString() << std::endl;
+}
 
 void MainWindow::on_pushButtonSwitch_clicked()
 {
@@ -81,7 +86,13 @@ void MainWindow::on_pushButtonSwitch_clicked()
 
 void MainWindow::on_pushButtonTranslate_clicked()
 {
-    sendRequest(ui->plainTextEditSource->toPlainText().toStdString());
+    network->sendRequestDeepl(
+                m_authKey,
+                ui->plainTextEditSource->toPlainText().toStdString(),
+                getSourceLang(),
+                getTargetLang());
+    std::cout << "mainwindow::on_pushButtonTranslate_clicked done" << std::endl;
+
 }
 
 
@@ -104,30 +115,23 @@ void MainWindow::setAuthKeyFromFile()
 
 std::string MainWindow::getSourceLang()
 {
+    std::cout << "mainwindow::getSourceLang done" << std::endl;
     return ui->comboBoxSourceLanguage->currentText().toStdString();
 }
 
 std::string MainWindow::getTargetLang()
 {
+    std::cout << "mainwindow::getTargetLang done" << std::endl;
     return ui->comboBoxTargetLanguage->currentText().toStdString();
 }
 
-void MainWindow::sendRequest(std::string textToTranslate)
-{
-    std::string reqStr =
-            "&auth_key=" + m_authKey
-            + "&text=" + textToTranslate
-            + "&source_lang=" + getSourceLang()
-            + "&target_lang=" + getTargetLang();
-    m_request.setUrl(QString::fromStdString(m_baseUrl));
-    m_manager->post(m_request, QByteArray::fromStdString(reqStr));
-}
 
-void MainWindow::setTranslatedText(std::string textToTranslate)
-{
-    m_translatedText = textToTranslate;
-    ui->plainTextEditTarget->setPlainText(QString::fromStdString(m_translatedText));
-}
+
+//void MainWindow::setTranslatedText(std::string textToTranslate)
+//{
+//    m_translatedText = textToTranslate;
+//    ui->plainTextEditTarget->setPlainText(QString::fromStdString(m_translatedText));
+//}
 
 void MainWindow::on_pushButtonSave_clicked()
 {

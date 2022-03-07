@@ -2,12 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonDocument>
 #include <QFile>
 #include <QMessageBox>
 #include <QByteArray>
@@ -18,10 +12,15 @@
 //#include <QVoice>
 #include <QThread>
 #include <QFontDialog>
+#include <iostream>
+#include <htmlcxx/html/ParserDom.h>
+#include "network.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+using namespace htmlcxx;
 
 class MainWindow : public QMainWindow
 {
@@ -30,6 +29,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+    void receiveNetworkSignalDeepl(const QString& arg);
+    void receiveNetworkSignalRomajiDesu(const QString& arg);
 
 private slots:
 
@@ -51,12 +54,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QNetworkAccessManager *m_manager;
-    QNetworkRequest m_request;
-    std::string m_replyStr;
+    Network *network  = new Network();
+    HTML::ParserDom *m_htmlParser;
     std::string m_authKey;
-    std::string m_baseUrl;
-    std::string m_translatedText;
     QString m_saveDirectoryPath;
     QString m_authKeyFilePath;
     QFont m_userFont;
@@ -67,7 +67,6 @@ private:
 
     QByteArray getJsonFromMessage(std::string message);
     void setAuthKeyFromFile();
-    void sendRequest(std::string textToTranslate);
     std::string getTargetLang();
     std::string getSourceLang();
     void setTranslatedText(std::string textToTranslate);
@@ -76,6 +75,7 @@ private:
     QString promptForFile(const QString& caption, const QString& filter);
     QString promptForDirectory(const QString& caption);
     void showPopUp(const std::string& title, const std::string& information);
+
 
 };
 #endif // MAINWINDOW_H
