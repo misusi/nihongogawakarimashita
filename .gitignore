@@ -3,3 +3,6 @@ saved_translations/
 config.conf
 moc_*
 buffaloshittranslator
+ui_*
+*.pro.*
+.qmake.stash
