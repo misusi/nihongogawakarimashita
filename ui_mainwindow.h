@@ -153,7 +153,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1600, 25));
+        menubar->setGeometry(QRect(0, 0, 1600, 22));
         menuNihongo_to_Eigo = new QMenu(menubar);
         menuNihongo_to_Eigo->setObjectName(QString::fromUtf8("menuNihongo_to_Eigo"));
         MainWindow->setMenuBar(menubar);
@@ -198,8 +198,8 @@ public:
         pushButtonClear->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
         pushButtonSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
         plainTextEditTarget->setPlaceholderText(QCoreApplication::translate("MainWindow", "Translation...", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Translation", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Definitions/Examples", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "DeepL Translation", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "RomajiDesu.com Examples", nullptr));
         plainTextEditSource->setPlaceholderText(QCoreApplication::translate("MainWindow", "Write here...", nullptr));
         menuNihongo_to_Eigo->setTitle(QCoreApplication::translate("MainWindow", "Options", nullptr));
     } // retranslateUi

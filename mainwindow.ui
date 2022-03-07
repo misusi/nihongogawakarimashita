@@ -162,7 +162,7 @@
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Translation</string>
+      <string>DeepL Translation</string>
      </attribute>
      <widget class="QPlainTextEdit" name="plainTextEditTarget">
       <property name="geometry">
@@ -188,7 +188,7 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Definitions/Examples</string>
+      <string>RomajiDesu.com Examples</string>
      </attribute>
      <widget class="QTextBrowser" name="textBrowser">
       <property name="geometry">
@@ -233,7 +233,7 @@
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuNihongo_to_Eigo">
