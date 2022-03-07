@@ -2,12 +2,6 @@
 #include "ui_mainwindow.h"
 
 
-// TODO:
-// [＋] Remove reading auth key from file, just put it in the config
-// [-] Get html parser working
-// [-] Add section for RomajiDesu dictionary/sentence examples
-
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -32,10 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     }
 
-    // Restore font
+    // Restore font　and ui settings
     m_userFont = QFont(filer.getFontName(), filer.getFontSize());
     ui->plainTextEditSource->setFont(m_userFont);
     ui->plainTextEditTarget->setFont(m_userFont);
+    ui->textBrowser->setFont(m_userFont);
+    ui->textBrowser->setOpenLinks(false);
 }
 
 void MainWindow::setConfigDefaults()
@@ -66,7 +62,6 @@ void MainWindow::receiveNetworkSignalDeepl(const QString &arg)
 
 void MainWindow::receiveNetworkSignalRomajiDesu(const QString &arg)
 {
-    ui->textBrowser->setOpenLinks(false);
     ui->textBrowser->setHtml(arg.section("More...",0,-2));
     //QTextBrowser::anchorClicked()
 }
@@ -184,6 +179,7 @@ void MainWindow::on_actionChange_Font_Settings_triggered()
         filer.setFontSize(QFontInfo(m_userFont).pointSize());
         ui->plainTextEditSource->setFont(font);
         ui->plainTextEditTarget->setFont(font);
+        ui->textBrowser->setFont(font);
 
         filer.writeConfig();
     }

@@ -7,7 +7,6 @@ Filer::Filer()
 bool Filer::readConfig(QString configPath)
 {
     QFile file(configPath);
-    std::cout << QFileInfo(file).canonicalFilePath().toStdString() << std::endl;
     if (!file.exists()) {
         return false;
     }
