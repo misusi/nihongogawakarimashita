@@ -67,7 +67,7 @@ void MainWindow::receiveNetworkSignalDeepl(const QString &arg)
 void MainWindow::receiveNetworkSignalRomajiDesu(const QString &arg)
 {
     ui->textBrowser->setOpenLinks(false);
-    ui->textBrowser->setHtml(arg);
+    ui->textBrowser->setHtml(arg.section("More...",0,1));
     //QTextBrowser::anchorClicked()
 }
 
