@@ -1,5 +1,4 @@
 saved_translations/
 *.o
 config.conf
-moc_mainwindow.cpp
-moc_predefs.h
+moc_*

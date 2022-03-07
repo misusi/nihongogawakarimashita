@@ -8,13 +8,16 @@
 #include <QTimer>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QInputDialog>
 //#include <QTextToSpeech>
 //#include <QVoice>
 #include <QThread>
 #include <QFontDialog>
+#include <QFont>
 #include <iostream>
 #include <htmlcxx/html/ParserDom.h>
 #include "network.h"
+#include "filer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -44,34 +47,24 @@ private slots:
 
     void on_pushButtonSave_clicked();
 
-    void on_actionSelectAuthKeyLocation_triggered();
-
     void on_actionSelectTranscriptionSaveLocation_triggered();
-
-    void on_actionShow_Current_Key_Save_Locations_triggered();
 
     void on_actionChange_Font_Settings_triggered();
 
 private:
     Ui::MainWindow *ui;
     Network *network  = new Network();
+    Filer filer;
     HTML::ParserDom *m_htmlParser;
     std::string m_authKey;
-    QString m_saveDirectoryPath;
-    QString m_authKeyFilePath;
+
     QFont m_userFont;
     QFont m_defaultFont = QFont("Helvetica", 10);
-    const QString m_configPath = "./config.conf";
-    const QString m_defaultSaveDir = "./saved_translations";
 
-
-    QByteArray getJsonFromMessage(std::string message);
+    void setConfigDefaults();
     void setAuthKeyFromFile();
     std::string getTargetLang();
     std::string getSourceLang();
-    void setTranslatedText(std::string textToTranslate);
-    bool readConfig(QString configPath);
-    void writeConfig(QString configPath);
     QString promptForFile(const QString& caption, const QString& filter);
     QString promptForDirectory(const QString& caption);
     void showPopUp(const std::string& title, const std::string& information);

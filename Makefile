@@ -52,13 +52,17 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp \
+SOURCES       = filer.cpp \
+		main.cpp \
 		mainwindow.cpp \
-		network.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+		network.cpp moc_mainwindow.cpp \
+		moc_network.cpp
+OBJECTS       = filer.o \
+		main.o \
 		mainwindow.o \
 		network.o \
-		moc_mainwindow.o
+		moc_mainwindow.o \
+		moc_network.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -357,8 +361,10 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		buffaloshittranslator.pro mainwindow.h \
-		network.h main.cpp \
+		buffaloshittranslator.pro filer.h \
+		mainwindow.h \
+		network.h filer.cpp \
+		main.cpp \
 		mainwindow.cpp \
 		network.cpp
 QMAKE_TARGET  = buffaloshittranslator
@@ -986,8 +992,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h network.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp network.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents filer.h mainwindow.h network.h $(DISTDIR)/
+	$(COPY_FILE) --parents filer.cpp main.cpp mainwindow.cpp network.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -1020,13 +1026,20 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_network.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_network.cpp
 moc_mainwindow.cpp: mainwindow.h \
+		network.h \
+		filer.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/misusi/Desktop/dev/qt/buffaloshittranslator/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/misusi/Desktop/dev/qt/buffaloshittranslator -I/usr/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+
+moc_network.cpp: network.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/misusi/Desktop/dev/qt/buffaloshittranslator/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/misusi/Desktop/dev/qt/buffaloshittranslator -I/usr/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include network.h -o moc_network.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1049,10 +1062,17 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h
+filer.o: filer.cpp filer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o filer.o filer.cpp
+
+main.o: main.cpp mainwindow.h \
+		network.h \
+		filer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
+		network.h \
+		filer.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -1061,6 +1081,9 @@ network.o: network.cpp network.h
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_network.o: moc_network.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_network.o moc_network.cpp
 
 ####### Install
 

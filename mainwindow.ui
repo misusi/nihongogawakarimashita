@@ -201,10 +201,10 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionSelectAuthKeyLocation"/>
     <addaction name="actionSelectTranscriptionSaveLocation"/>
     <addaction name="actionShow_Current_Key_Save_Locations"/>
     <addaction name="actionChange_Font_Settings"/>
+    <addaction name="actionChange_AuthKey"/>
    </widget>
    <addaction name="menuNihongo_to_Eigo"/>
   </widget>
@@ -227,6 +227,11 @@
   <action name="actionChange_Font_Settings">
    <property name="text">
     <string>Change Font Settings</string>
+   </property>
+  </action>
+  <action name="actionChange_AuthKey">
+   <property name="text">
+    <string>Change AuthKey</string>
    </property>
   </action>
  </widget>
