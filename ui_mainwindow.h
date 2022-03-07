@@ -57,14 +57,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1280, 720);
+        MainWindow->resize(1600, 900);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(1280, 720));
-        MainWindow->setMaximumSize(QSize(1280, 764));
+        MainWindow->setMinimumSize(QSize(1600, 900));
+        MainWindow->setMaximumSize(QSize(1600, 900));
         actionSelectAuthKeyLocation = new QAction(MainWindow);
         actionSelectAuthKeyLocation->setObjectName(QString::fromUtf8("actionSelectAuthKeyLocation"));
         actionSelectTranscriptionSaveLocation = new QAction(MainWindow);
@@ -79,12 +79,12 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
-        centralwidget->setMinimumSize(QSize(1280, 720));
-        centralwidget->setMaximumSize(QSize(1280, 720));
+        centralwidget->setMinimumSize(QSize(1600, 900));
+        centralwidget->setMaximumSize(QSize(1600, 900));
         centralwidget->setSizeIncrement(QSize(1, 1));
         horizontalLayoutWidget_2 = new QWidget(centralwidget);
         horizontalLayoutWidget_2->setObjectName(QString::fromUtf8("horizontalLayoutWidget_2"));
-        horizontalLayoutWidget_2->setGeometry(QRect(0, 0, 641, 31));
+        horizontalLayoutWidget_2->setGeometry(QRect(0, 0, 791, 31));
         horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -128,12 +128,12 @@ public:
 
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(640, 0, 640, 691));
+        tabWidget->setGeometry(QRect(800, 0, 800, 871));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         plainTextEditTarget = new QPlainTextEdit(tab);
         plainTextEditTarget->setObjectName(QString::fromUtf8("plainTextEditTarget"));
-        plainTextEditTarget->setGeometry(QRect(0, 0, 631, 661));
+        plainTextEditTarget->setGeometry(QRect(0, 0, 791, 841));
         QFont font;
         font.setPointSize(12);
         plainTextEditTarget->setFont(font);
@@ -143,17 +143,17 @@ public:
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         textBrowser = new QTextBrowser(tab_2);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(0, 0, 631, 661));
+        textBrowser->setGeometry(QRect(0, 0, 791, 841));
         textBrowser->setMaximumSize(QSize(16777215, 16777215));
         tabWidget->addTab(tab_2, QString());
         plainTextEditSource = new QPlainTextEdit(centralwidget);
         plainTextEditSource->setObjectName(QString::fromUtf8("plainTextEditSource"));
-        plainTextEditSource->setGeometry(QRect(0, 29, 640, 661));
+        plainTextEditSource->setGeometry(QRect(0, 29, 801, 841));
         plainTextEditSource->setFont(font);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1280, 22));
+        menubar->setGeometry(QRect(0, 0, 1600, 25));
         menuNihongo_to_Eigo = new QMenu(menubar);
         menuNihongo_to_Eigo->setObjectName(QString::fromUtf8("menuNihongo_to_Eigo"));
         MainWindow->setMenuBar(menubar);

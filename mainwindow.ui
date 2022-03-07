@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1280</width>
-    <height>720</height>
+    <width>1600</width>
+    <height>900</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1280</width>
-    <height>764</height>
+    <width>1600</width>
+    <height>900</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -40,14 +40,14 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>1280</width>
-     <height>720</height>
+     <width>1600</width>
+     <height>900</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>1280</width>
-     <height>720</height>
+     <width>1600</width>
+     <height>900</height>
     </size>
    </property>
    <property name="sizeIncrement">
@@ -61,7 +61,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>641</width>
+      <width>791</width>
       <height>31</height>
      </rect>
     </property>
@@ -151,10 +151,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>800</x>
       <y>0</y>
-      <width>640</width>
-      <height>691</height>
+      <width>800</width>
+      <height>871</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -169,8 +169,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>631</width>
-        <height>661</height>
+        <width>791</width>
+        <height>841</height>
        </rect>
       </property>
       <property name="font">
@@ -195,8 +195,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>631</width>
-        <height>661</height>
+        <width>791</width>
+        <height>841</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -213,8 +213,8 @@
      <rect>
       <x>0</x>
       <y>29</y>
-      <width>640</width>
-      <height>661</height>
+      <width>801</width>
+      <height>841</height>
      </rect>
     </property>
     <property name="font">
@@ -232,8 +232,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
-     <height>22</height>
+     <width>1600</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuNihongo_to_Eigo">
