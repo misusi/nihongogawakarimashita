@@ -3,7 +3,7 @@
 
 
 // TODO:
-// [-] Remove reading auth key from file, just put it in the config
+// [＋] Remove reading auth key from file, just put it in the config
 // [-] Get html parser working
 // [-] Add section for RomajiDesu dictionary/sentence examples
 
@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Listen for network reply ready signals
     QObject::connect(network, SIGNAL(replyReadyDeepl(QString)), this, SLOT(receiveNetworkSignalDeepl(QString)));
     QObject::connect(network, SIGNAL(replyReadyRomajiDesu(QString)), this, SLOT(receiveNetworkSignalRomajiDesu(QString)));
-
-    // HTML Parser
-    m_htmlParser = new HTML::ParserDom();
 
 
     QFileInfo fileInfo("./");
@@ -43,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::setConfigDefaults()
 {
-    filer.setAuthKey(QInputDialog::getText(this, tr("Enter DeepL AuthKey"), tr("DeepL AuthKey:"), QLineEdit::Normal));
+    filer.setAuthKey(showInputPopUp("Enter DeepL AuthKey", "DeepL AuthKey:"));
     filer.setSaveDir();
     QFontInfo info = QFontInfo(m_defaultFont);
     filer.setFontName(info.family());
@@ -58,7 +55,7 @@ void MainWindow::setConfigDefaults()
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_htmlParser;
+    delete network;
 }
 
 void MainWindow::receiveNetworkSignalDeepl(const QString &arg)
@@ -69,7 +66,11 @@ void MainWindow::receiveNetworkSignalDeepl(const QString &arg)
 
 void MainWindow::receiveNetworkSignalRomajiDesu(const QString &arg)
 {
+    ui->textBrowser->setOpenLinks(false);
+    ui->textBrowser->setHtml(arg);
+    //QTextBrowser::anchorClicked()
 }
+
 
 void MainWindow::on_pushButtonSwitch_clicked()
 {
@@ -94,7 +95,7 @@ void MainWindow::on_pushButtonTranslate_clicked()
                 ui->plainTextEditSource->toPlainText().toStdString(),
                 getSourceLang(),
                 getTargetLang());
-
+    network->sendRequestRomajiDesu(ui->plainTextEditSource->toPlainText());
 }
 
 
@@ -195,3 +196,14 @@ void MainWindow::on_actionShow_Current_Key_Save_Locations_triggered()
               + "\nSave Location: " + QFileInfo(filer.getSaveDir()).canonicalFilePath().toStdString());
 }
 
+
+void MainWindow::on_actionChange_AuthKey_triggered()
+{
+    filer.setAuthKey(showInputPopUp("Enter new DeepL AuthKey", "New DeepL AuthKey:"));
+    filer.writeConfig();
+}
+
+QString MainWindow::showInputPopUp(const QString title, const QString inputLabel)
+{
+    return QInputDialog::getText(this, title, inputLabel, QLineEdit::Normal);
+}

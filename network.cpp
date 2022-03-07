@@ -32,7 +32,7 @@ Network::Network(QObject *parent) :
 
             // Store reply text and send it in a signal
             m_replyTextRomajiDesu = reply->readAll();
-            replyReadyRomajiDesu(m_replyTextRomajiDesu);
+            sendNetworkSignalRomajiDesu();
         }
     );
 

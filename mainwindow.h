@@ -15,15 +15,15 @@
 #include <QFontDialog>
 #include <QFont>
 #include <iostream>
-#include <htmlcxx/html/ParserDom.h>
 #include "network.h"
 #include "filer.h"
+#include <QTextBrowser>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-using namespace htmlcxx;
 
 class MainWindow : public QMainWindow
 {
@@ -53,11 +53,12 @@ private slots:
 
     void on_actionShow_Current_Key_Save_Locations_triggered();
 
+    void on_actionChange_AuthKey_triggered();
+
 private:
     Ui::MainWindow *ui;
     Network *network  = new Network();
     Filer filer;
-    HTML::ParserDom *m_htmlParser;
 
     QFont m_userFont;
     QFont m_defaultFont = QFont("Helvetica", 10);
@@ -69,7 +70,7 @@ private:
     QString promptForFile(const QString& caption, const QString& filter);
     QString promptForDirectory(const QString& caption);
     void showPopUp(const std::string& title, const std::string& information);
-
+    QString showInputPopUp(const QString title, const QString inputLabel);
 
 };
 #endif // MAINWINDOW_H

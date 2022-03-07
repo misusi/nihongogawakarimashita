@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,9 +27,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/lib/release/ -lhtmlcxx
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/lib/debug/ -lhtmlcxx
-else:unix: LIBS += -L$$PWD/../../../../../../usr/lib/ -lhtmlcxx
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../usr/lib/release/ -lxml2
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../usr/lib/debug/ -lxml2
+else:unix: LIBS += -L$$PWD/../../../../../../usr/lib/ -lxml2
 
 INCLUDEPATH += $$PWD/../../../../../../usr/include
 DEPENDPATH += $$PWD/../../../../../../usr/include

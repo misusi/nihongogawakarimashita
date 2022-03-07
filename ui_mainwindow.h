@@ -20,6 +20,8 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,10 +35,6 @@ public:
     QAction *actionChange_Font_Settings;
     QAction *actionChange_AuthKey;
     QWidget *centralwidget;
-    QWidget *horizontalLayoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QPlainTextEdit *plainTextEditSource;
-    QPlainTextEdit *plainTextEditTarget;
     QWidget *horizontalLayoutWidget_2;
     QHBoxLayout *horizontalLayout_2;
     QComboBox *comboBoxSourceLanguage;
@@ -45,6 +43,12 @@ public:
     QPushButton *pushButtonTranslate;
     QPushButton *pushButtonClear;
     QPushButton *pushButtonSave;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QPlainTextEdit *plainTextEditTarget;
+    QWidget *tab_2;
+    QTextBrowser *textBrowser;
+    QPlainTextEdit *plainTextEditSource;
     QMenuBar *menubar;
     QMenu *menuNihongo_to_Eigo;
     QStatusBar *statusbar;
@@ -78,30 +82,9 @@ public:
         centralwidget->setMinimumSize(QSize(1280, 720));
         centralwidget->setMaximumSize(QSize(1280, 720));
         centralwidget->setSizeIncrement(QSize(1, 1));
-        horizontalLayoutWidget = new QWidget(centralwidget);
-        horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 50, 1271, 641));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        plainTextEditSource = new QPlainTextEdit(horizontalLayoutWidget);
-        plainTextEditSource->setObjectName(QString::fromUtf8("plainTextEditSource"));
-        QFont font;
-        font.setPointSize(12);
-        plainTextEditSource->setFont(font);
-
-        horizontalLayout->addWidget(plainTextEditSource);
-
-        plainTextEditTarget = new QPlainTextEdit(horizontalLayoutWidget);
-        plainTextEditTarget->setObjectName(QString::fromUtf8("plainTextEditTarget"));
-        plainTextEditTarget->setFont(font);
-        plainTextEditTarget->setReadOnly(true);
-
-        horizontalLayout->addWidget(plainTextEditTarget);
-
         horizontalLayoutWidget_2 = new QWidget(centralwidget);
         horizontalLayoutWidget_2->setObjectName(QString::fromUtf8("horizontalLayoutWidget_2"));
-        horizontalLayoutWidget_2->setGeometry(QRect(0, 10, 476, 31));
+        horizontalLayoutWidget_2->setGeometry(QRect(0, 0, 641, 31));
         horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -143,6 +126,30 @@ public:
 
         horizontalLayout_2->addWidget(pushButtonSave);
 
+        tabWidget = new QTabWidget(centralwidget);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setGeometry(QRect(640, 0, 640, 691));
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        plainTextEditTarget = new QPlainTextEdit(tab);
+        plainTextEditTarget->setObjectName(QString::fromUtf8("plainTextEditTarget"));
+        plainTextEditTarget->setGeometry(QRect(0, 0, 631, 661));
+        QFont font;
+        font.setPointSize(12);
+        plainTextEditTarget->setFont(font);
+        plainTextEditTarget->setReadOnly(true);
+        tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        textBrowser = new QTextBrowser(tab_2);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        textBrowser->setGeometry(QRect(0, 0, 631, 661));
+        textBrowser->setMaximumSize(QSize(16777215, 16777215));
+        tabWidget->addTab(tab_2, QString());
+        plainTextEditSource = new QPlainTextEdit(centralwidget);
+        plainTextEditSource->setObjectName(QString::fromUtf8("plainTextEditSource"));
+        plainTextEditSource->setGeometry(QRect(0, 29, 640, 661));
+        plainTextEditSource->setFont(font);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -164,6 +171,7 @@ public:
 
         comboBoxSourceLanguage->setCurrentIndex(0);
         comboBoxTargetLanguage->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -177,8 +185,6 @@ public:
         actionShow_Current_Key_Save_Locations->setText(QCoreApplication::translate("MainWindow", "Show Current Key/Save Location", nullptr));
         actionChange_Font_Settings->setText(QCoreApplication::translate("MainWindow", "Change Font Settings", nullptr));
         actionChange_AuthKey->setText(QCoreApplication::translate("MainWindow", "Change AuthKey", nullptr));
-        plainTextEditSource->setPlaceholderText(QCoreApplication::translate("MainWindow", "Write here...", nullptr));
-        plainTextEditTarget->setPlaceholderText(QCoreApplication::translate("MainWindow", "Translation...", nullptr));
         comboBoxSourceLanguage->setItemText(0, QCoreApplication::translate("MainWindow", "JA", nullptr));
         comboBoxSourceLanguage->setItemText(1, QCoreApplication::translate("MainWindow", "EN", nullptr));
 
@@ -191,6 +197,10 @@ public:
         pushButtonTranslate->setText(QCoreApplication::translate("MainWindow", "Translate", nullptr));
         pushButtonClear->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
         pushButtonSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
+        plainTextEditTarget->setPlaceholderText(QCoreApplication::translate("MainWindow", "Translation...", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Translation", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Definitions/Examples", nullptr));
+        plainTextEditSource->setPlaceholderText(QCoreApplication::translate("MainWindow", "Write here...", nullptr));
         menuNihongo_to_Eigo->setTitle(QCoreApplication::translate("MainWindow", "Options", nullptr));
     } // retranslateUi
 
