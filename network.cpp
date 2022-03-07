@@ -14,13 +14,11 @@ Network::Network(QObject *parent) :
                 qDebug() << reply->errorString();
                 return;
             }
-            std::cout << "network::reply received" << std::endl;
             // Store reply text and send it in a signal
             QJsonParseError err;
             QJsonDocument doc(QJsonDocument::fromJson(reply->readAll(), &err));
             m_replyTextDeepl = doc.object()["translations"].toArray().first()
                     .toObject().value("text").toString();
-            std::cout << "here" << std::endl;
             sendNetworkSignalDeepl();
         }
     );
@@ -37,7 +35,6 @@ Network::Network(QObject *parent) :
             replyReadyRomajiDesu(m_replyTextRomajiDesu);
         }
     );
-    std::cout << "network::constructor done" << std::endl;
 
 
 }
@@ -51,7 +48,6 @@ Network::~Network()
 void Network::sendNetworkSignalDeepl()
 {
     emit replyReadyDeepl(m_replyTextDeepl);
-    std::cout << "network::sendnetworksignaldeepl done" << std::endl;
 
 }
 
@@ -75,7 +71,6 @@ void Network::sendRequestDeepl(
             + "&target_lang=" + targetLang;
 
     m_managerDeepl->post(req, QByteArray::fromStdString(postDataStr));
-    std::cout << "network::sendrequestdeepl done" << std::endl;
 }
 
 void Network::sendRequestRomajiDesu(QString text)
