@@ -103,6 +103,7 @@ void MainWindow::on_pushButtonClear_clicked()
 {
     ui->plainTextEditSource->clear();
     ui->plainTextEditTarget->clear();
+    ui->textBrowser->clear();
 }
 
 
