@@ -174,7 +174,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\343\201\253\343\201\273\343\202\223\343\201\224\343\201\214\343\202\217\343\201\213\343\202\212\343\201\276\343\201\227\343\201\237!!!!!!(\343\201\231\343\201\223\343\201\227)", nullptr));
         actionSelectAuthKeyLocation->setText(QCoreApplication::translate("MainWindow", "Select AuthKey Location", nullptr));
         actionSelectTranscriptionSaveLocation->setText(QCoreApplication::translate("MainWindow", "Select Translation Save Location", nullptr));
-        actionShow_Current_Key_Save_Locations->setText(QCoreApplication::translate("MainWindow", "Show Current Key/Save Locations", nullptr));
+        actionShow_Current_Key_Save_Locations->setText(QCoreApplication::translate("MainWindow", "Show Current Key/Save Location", nullptr));
         actionChange_Font_Settings->setText(QCoreApplication::translate("MainWindow", "Change Font Settings", nullptr));
         actionChange_AuthKey->setText(QCoreApplication::translate("MainWindow", "Change AuthKey", nullptr));
         plainTextEditSource->setPlaceholderText(QCoreApplication::translate("MainWindow", "Write here...", nullptr));

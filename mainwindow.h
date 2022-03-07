@@ -51,12 +51,13 @@ private slots:
 
     void on_actionChange_Font_Settings_triggered();
 
+    void on_actionShow_Current_Key_Save_Locations_triggered();
+
 private:
     Ui::MainWindow *ui;
     Network *network  = new Network();
     Filer filer;
     HTML::ParserDom *m_htmlParser;
-    std::string m_authKey;
 
     QFont m_userFont;
     QFont m_defaultFont = QFont("Helvetica", 10);

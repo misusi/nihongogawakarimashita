@@ -90,7 +90,7 @@ void MainWindow::on_pushButtonSwitch_clicked()
 void MainWindow::on_pushButtonTranslate_clicked()
 {
     network->sendRequestDeepl(
-                m_authKey,
+                filer.getAuthKey().toStdString(),
                 ui->plainTextEditSource->toPlainText().toStdString(),
                 getSourceLang(),
                 getTargetLang());
@@ -185,5 +185,13 @@ void MainWindow::on_actionChange_Font_Settings_triggered()
 
         filer.writeConfig();
     }
+}
+
+
+void MainWindow::on_actionShow_Current_Key_Save_Locations_triggered()
+{
+    showPopUp("Auth Key and Save Folder Path",
+              "DeepL AuthKey: " + filer.getAuthKey().toStdString()
+              + "\nSave Location: " + QFileInfo(filer.getSaveDir()).canonicalFilePath().toStdString());
 }
 

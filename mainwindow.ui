@@ -221,7 +221,7 @@
   </action>
   <action name="actionShow_Current_Key_Save_Locations">
    <property name="text">
-    <string>Show Current Key/Save Locations</string>
+    <string>Show Current Key/Save Location</string>
    </property>
   </action>
   <action name="actionChange_Font_Settings">
