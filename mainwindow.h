@@ -71,6 +71,8 @@ private:
     QString promptForDirectory(const QString& caption);
     void showPopUp(const std::string& title, const std::string& information);
     QString showInputPopUp(const QString title, const QString inputLabel);
+    void restoreFocus();
+
 
 };
 #endif // MAINWINDOW_H

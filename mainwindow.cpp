@@ -32,6 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->plainTextEditTarget->setFont(m_userFont);
     ui->textBrowser->setFont(m_userFont);
     ui->textBrowser->setOpenLinks(false);
+    ui->plainTextEditSource->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
+    ui->pushButtonTranslate->setFocusPolicy(Qt::FocusPolicy::TabFocus);
+    ui->plainTextEditTarget->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
+    ui->plainTextEditSource->setFocus();
 }
 
 void MainWindow::setConfigDefaults()
@@ -79,6 +83,7 @@ void MainWindow::on_pushButtonSwitch_clicked()
     QString currentSourceText = ui->plainTextEditSource->toPlainText();
     ui->plainTextEditSource->setPlainText(ui->plainTextEditTarget->toPlainText());
     ui->plainTextEditTarget->setPlainText(currentSourceText);
+    restoreFocus();
 }
 
 
@@ -91,6 +96,7 @@ void MainWindow::on_pushButtonTranslate_clicked()
                 getSourceLang(),
                 getTargetLang());
     network->sendRequestRomajiDesu(ui->plainTextEditSource->toPlainText());
+    restoreFocus();
 }
 
 
@@ -99,6 +105,7 @@ void MainWindow::on_pushButtonClear_clicked()
     ui->plainTextEditSource->clear();
     ui->plainTextEditTarget->clear();
     ui->textBrowser->clear();
+    restoreFocus();
 }
 
 
@@ -137,6 +144,7 @@ void MainWindow::on_pushButtonSave_clicked()
     else{
         showPopUp("Error", "Translation could not be saved.");
     }
+    restoreFocus();
 }
 
 void MainWindow::showPopUp(const std::string& title, const std::string& information)
@@ -203,4 +211,9 @@ void MainWindow::on_actionChange_AuthKey_triggered()
 QString MainWindow::showInputPopUp(const QString title, const QString inputLabel)
 {
     return QInputDialog::getText(this, title, inputLabel, QLineEdit::Normal);
+}
+
+void MainWindow::restoreFocus()
+{
+    ui->plainTextEditSource->setFocus();
 }

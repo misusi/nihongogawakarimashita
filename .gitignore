@@ -1,8 +1,7 @@
-saved_translations/
+saved-translations/
 *.o
 config.conf
 moc_*
-buffaloshittranslator
+niwa
 ui_*
-*.pro.*
 .qmake.stash
