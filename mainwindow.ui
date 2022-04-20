@@ -90,6 +90,11 @@
          <string>EN</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>FR</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
@@ -121,6 +126,11 @@
        <item>
         <property name="text">
          <string>EN</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FR</string>
         </property>
        </item>
       </widget>
@@ -244,7 +254,7 @@
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuNihongo_to_Eigo">
